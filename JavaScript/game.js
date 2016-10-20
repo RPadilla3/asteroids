@@ -3,10 +3,13 @@
 
     var shipElem = document.getElementById('ship');
 
+      var rotate;
+
       var ship = {
         htmlElem: shipElem,
         velocity: 0,
         angle: 0
+
       };
 
       console.log(ship);
@@ -34,17 +37,27 @@
     function handleKeys(event) {
         console.log(event.keyCode);
         if (event.keyCode === 37) {
-          ship.htmlElem.style.backgroundColor = 'green';
+          ship.angle -= 15;
+          console.log(ship.angle);
+          ship.htmlElem.style.transform = 'rotate(' + ship.angle + 'deg)';
+          // ship.htmlElem.style.transform = 'rotate(-5deg)';
+
+      }
+      else if (event.keyCode === 39) {
+          ship.angle += 15;
+          console.log(ship.angle);
+          ship.htmlElem.style.transform = 'rotate(' + ship.angle + 'deg)';
         }
-        if (event.keyCode === 39) {
-          console.log('right');
-        }
-        if (event.keyCode === 40) {
-          console.log('down');
-        }
-        if (event.keyCode === 38) {
-          console.log('up');
-        }
+
+      else if (event.keyCode === 38) {
+        ship.velocity +=15;
+        var shipMove = getShipMovement(ship.velocity, ship.angle);
+        console.log(shipMove);
+        ship.htmlElem.style.top = '' + shipMove.top + 'px';
+        ship.htmlElem.style.left = '' + shipMove.top + 'px';
+        console.log(ship);
+
+      }
     }
     document.querySelector('body').addEventListener('keyup', handleKeys);
 
