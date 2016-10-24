@@ -37,14 +37,14 @@
     function handleKeys(event) {
         console.log(event.keyCode);
         if (event.keyCode === 37) {
-          ship.angle -= 15;
+          ship.angle -= 20;
           console.log(ship.angle);
           ship.htmlElem.style.transform = 'rotate(' + ship.angle + 'deg)';
           // ship.htmlElem.style.transform = 'rotate(-5deg)';
 
       }
       else if (event.keyCode === 39) {
-          ship.angle += 15;
+          ship.angle += 20;
           console.log(ship.angle);
           ship.htmlElem.style.transform = 'rotate(' + ship.angle + 'deg)';
         }
