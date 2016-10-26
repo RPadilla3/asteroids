@@ -20,11 +20,15 @@
 
 
     var allAsteroids = [];
+
     shipElem.addEventListener('asteroidDetected', function(event) {
         // You can detect when a new asteroid appears with this event.
         // The new asteroid's HTML element will be in:  event.detail
-      allAsteroids.push(event.detail);
-        // What might you need/want to do in here?
+        var shipSpace = ship.htmlElem.getBoundingClientRect();
+        var rockSpace = event.detail.getBoundingClientRect();
+        allAsteroids.push(event.detail);
+        console.log(ship.htmlElem.getBoundingClientRect());
+        console.log(event.detail.getBoundingClientRect());
 
     });
 
@@ -41,27 +45,20 @@
      * @return {void}          In other words, no need to return anything
      */
     function handleKeys(event) {
-        console.log(event.keyCode);
         if (event.keyCode === 37) {
             ship.angle -= 20;
-            console.log(ship.angle);
             ship.htmlElem.style.transform = 'rotate(' + ship.angle + 'deg)';
             // ship.htmlElem.style.transform = 'rotate(-5deg)';
-
         } else if (event.keyCode === 39) {
             ship.angle += 20;
-            console.log(ship.angle);
             ship.htmlElem.style.transform = 'rotate(' + ship.angle + 'deg)';
         } else if (event.keyCode === 38) {
             ship.velocity += 1;
             var shipMove = getShipMovement(ship.velocity, ship.angle);
-            console.log(shipMove);
-          
         } else if (event.keyCode === 40) {
-          console.log('down')
-          ship.velocity -= 1;
+            ship.velocity -= 1;
         }
-      }
+    }
 
     document.querySelector('body').addEventListener('keyup', handleKeys);
 
@@ -113,8 +110,10 @@
      * @return void
      */
     function checkForCollisions() {
-      // var crash = ship.getBoundingClientRect();
 
+      var shipCoordinates = ship.htmlElem.getBoundingClientRect(); {
+        console.log( shipCoordinates );
+      }
         // Implement me!
 
     }
