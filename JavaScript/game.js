@@ -3,21 +3,27 @@
 
     var shipElem = document.getElementById('ship');
 
-      var rotate;
+    var rotate;
 
-      var ship = {
+    var ship = {
         htmlElem: shipElem,
         velocity: 0,
         angle: 0
 
-      };
+    };
 
-      console.log(ship);
+    console.log(ship);
+
+    ship.htmlElem.style.top = '500px';
+    ship.htmlElem.style.top = '30px';
+
+
+
     var allAsteroids = [];
-    shipElem.addEventListener('asteroidDetected', function (event) {
+    shipElem.addEventListener('asteroidDetected', function(event) {
         // You can detect when a new asteroid appears with this event.
         // The new asteroid's HTML element will be in:  event.detail
-
+      allAsteroids.push(even.detail);
         // What might you need/want to do in here?
 
     });
@@ -37,27 +43,24 @@
     function handleKeys(event) {
         console.log(event.keyCode);
         if (event.keyCode === 37) {
-          ship.angle -= 20;
-          console.log(ship.angle);
-          ship.htmlElem.style.transform = 'rotate(' + ship.angle + 'deg)';
-          // ship.htmlElem.style.transform = 'rotate(-5deg)';
+            ship.angle -= 20;
+            console.log(ship.angle);
+            ship.htmlElem.style.transform = 'rotate(' + ship.angle + 'deg)';
+            // ship.htmlElem.style.transform = 'rotate(-5deg)';
 
-      }
-      else if (event.keyCode === 39) {
-          ship.angle += 20;
-          console.log(ship.angle);
-          ship.htmlElem.style.transform = 'rotate(' + ship.angle + 'deg)';
+        } else if (event.keyCode === 39) {
+            ship.angle += 20;
+            console.log(ship.angle);
+            ship.htmlElem.style.transform = 'rotate(' + ship.angle + 'deg)';
+        } else if (event.keyCode === 38) {
+            ship.velocity += 15;
+            var shipMove = getShipMovement(ship.velocity, ship.angle);
+            console.log(shipMove);
+            ship.htmlElem.style.top = '' + shipMove.top + 'px';
+            ship.htmlElem.style.left = '' + shipMove.top + 'px';
+            console.log(ship);
+
         }
-
-      else if (event.keyCode === 38) {
-        ship.velocity +=15;
-        var shipMove = getShipMovement(ship.velocity, ship.angle);
-        console.log(shipMove);
-        ship.htmlElem.style.top = '' + shipMove.top + 'px';
-        ship.htmlElem.style.left = '' + shipMove.top + 'px';
-        console.log(ship);
-
-      }
     }
     document.querySelector('body').addEventListener('keyup', handleKeys);
 
@@ -113,7 +116,7 @@
      *
      * return {void}
      */
-    document.querySelector('main').addEventListener('crash', function () {
+    document.querySelector('main').addEventListener('crash', function() {
         console.log('A crash occurred!');
 
         // What might you need/want to do in here?
@@ -128,22 +131,24 @@
      *                   !!! DO NOT EDIT BELOW HERE !!!
      ** ************************************************************************/
 
-     var loopHandle = setInterval(gameLoop, 20);
+    var loopHandle = setInterval(gameLoop, 20);
 
-     /**
-      * Executes the code required when a crash has occurred. You should call
-      * this function when a collision has been detected with the asteroid that
-      * was hit as the only argument.
-      *
-      * @param  {HTMLElement} asteroidHit The HTML element of the hit asteroid
-      * @return {void}
-      */
+    /**
+     * Executes the code required when a crash has occurred. You should call
+     * this function when a collision has been detected with the asteroid that
+     * was hit as the only argument.
+     *
+     * @param  {HTMLElement} asteroidHit The HTML element of the hit asteroid
+     * @return {void}
+     */
     function crash(asteroidHit) {
         document.querySelector('body').removeEventListener('keyup', handleKeys);
         asteroidHit.classList.add('hit');
         document.querySelector('#ship').classList.add('crash');
 
-        var event = new CustomEvent('crash', { detail: asteroidHit });
+        var event = new CustomEvent('crash', {
+            detail: asteroidHit
+        });
         document.querySelector('main').dispatchEvent(event);
     }
 
