@@ -14,8 +14,8 @@
 
     console.log(ship);
 
-    ship.htmlElem.style.top = '500px';
-    ship.htmlElem.style.top = '30px';
+    ship.htmlElem.style.top = '300px';
+    ship.htmlElem.style.left = '600px';
 
 
 
@@ -56,13 +56,13 @@
             ship.velocity += 1;
             var shipMove = getShipMovement(ship.velocity, ship.angle);
             console.log(shipMove);
-            ship.htmlElem.style.top = '' + shipMove.top + 'px';
-            ship.htmlElem.style.left = '' + shipMove.top + 'px';
-            console.log(ship);
-
+          
+        } else if (event.keyCode === 40) {
+          console.log('down')
+          ship.velocity -= 1;
         }
       }
-    
+
     document.querySelector('body').addEventListener('keyup', handleKeys);
 
     /**
@@ -113,6 +113,7 @@
      * @return void
      */
     function checkForCollisions() {
+      // var crash = ship.getBoundingClientRect();
 
         // Implement me!
 
