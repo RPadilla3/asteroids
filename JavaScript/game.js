@@ -23,7 +23,7 @@
     shipElem.addEventListener('asteroidDetected', function(event) {
         // You can detect when a new asteroid appears with this event.
         // The new asteroid's HTML element will be in:  event.detail
-      allAsteroids.push(even.detail);
+      allAsteroids.push(event.detail);
         // What might you need/want to do in here?
 
     });
@@ -53,7 +53,7 @@
             console.log(ship.angle);
             ship.htmlElem.style.transform = 'rotate(' + ship.angle + 'deg)';
         } else if (event.keyCode === 38) {
-            ship.velocity += 15;
+            ship.velocity += 1;
             var shipMove = getShipMovement(ship.velocity, ship.angle);
             console.log(shipMove);
             ship.htmlElem.style.top = '' + shipMove.top + 'px';
@@ -61,7 +61,8 @@
             console.log(ship);
 
         }
-    }
+      }
+    
     document.querySelector('body').addEventListener('keyup', handleKeys);
 
     /**
@@ -77,7 +78,14 @@
         // NOTE: you will need to change these arguments to match your ship object!
         // What does this function return? What will be in the `move` variable?
         // Read the documentation!
+        var movement = getShipMovement(ship.velocity, ship.angle);
+        var top = parseInt(ship.htmlElem.style.top);
+        top -= movement.top;
+        ship.htmlElem.style.top = top + 'px';
 
+        var left = parseInt(ship.htmlElem.style.left);
+        left += movement.left;
+        ship.htmlElem.style.left = left + 'px';
 
 
         // var move = getShipMovement(shipsCurrentVelocity, shipsCurrentAngle);
